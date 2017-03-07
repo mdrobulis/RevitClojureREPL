@@ -1,0 +1,28 @@
+﻿<Window x:Class="RevitClojureRepl.ReplConsole"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RevitClojureRepl"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+            <ListView Grid.Row="0" ItemsSource="{Binding CommandHistory}">
+                
+            </ListView>
+
+        <TextBox Name="cmd" MinLines="3" Height="50" Text="{Binding ClojureCode}" Grid.Row="1">
+                <TextBox.InputBindings >
+                    <KeyBinding Key="Enter" Command="{Binding ExecuteSexpression}" CommandParameter="{Binding ElementName=cmd, Path=Text}" />
+                </TextBox.InputBindings>
+            </TextBox>
+
+
+    </Grid>
+        
+
+</Window>

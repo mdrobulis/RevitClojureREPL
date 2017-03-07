@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>revit-Clj-repl</Name>
+    <Assembly>RevitClojureRepl.dll</Assembly>
+    <AddInId>FD306986-7A08-4BAA-8418-C4A990B5645D</AddInId>
+    <FullClassName>RevitClojureRepl.GuiReplPlugin</FullClassName>  
+    <VendorId>Martynas Drobulis</VendorId>
+  </AddIn>
+</RevitAddIns>
