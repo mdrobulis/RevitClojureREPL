@@ -18,7 +18,7 @@ namespace RevitClojureRepl
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class ReplConsole : Window
+    public partial class ReplConsole : Page
     {
         public ReplConsole()
         {

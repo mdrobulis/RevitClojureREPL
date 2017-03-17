@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>clojure-socket-repl</Name>
+    <Assembly>RevitClojureRepl/RevitClojureRepl.dll</Assembly>
+    <AddInId>FD306986-7A08-4BAA-8418-C4A990B5645D</AddInId>
+    <FullClassName>RevitClojureRepl.NativeSocketRepl</FullClassName>  
+    <VendorId>Martynas Drobulis</VendorId>
+  </AddIn>
+
+  <AddIn Type="Application">
+    <Name>Clj-gui-repl</Name>
+    <Assembly>RevitClojureRepl/RevitClojureRepl.dll</Assembly>
+    <AddInId>1D4605C9-2B4F-462E-9A27-6E8C71851A29</AddInId>
+    <FullClassName>RevitClojureRepl.GuiReplPlugin</FullClassName>
+    <VendorId>Martynas Drobulis</VendorId>
+  </AddIn>
+  
+</RevitAddIns>
