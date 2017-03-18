@@ -1,7 +1,14 @@
 ; document => ExternalCommandData
 ;
 
-(in-ns 'user)
+
+(import '(Autodesk.Revit.DB Element ElementId Wall Area  ))
+(use 'clojure.repl 'clojure.pprint 'clojure.reflect )
+
+
+(def App RevitClojureRepl.GuiReplPlugin/app)
+(def CommandData RevitClojureRepl.GuiCommand/CommandData)
+
 
 (def ui-doc 
 	(-> CommandData
@@ -50,7 +57,7 @@
 	)
 )
 
-(def params (mapv  #(get-parameters (get-element document %)) (get-selected-elements ui-doc))
+;(def params (mapv  #(get-parameters (get-element document %)) (get-selected-elements ui-doc)))
 
 
 
@@ -75,9 +82,9 @@
 	)
 )
 
-(import '(Autodesk.Revit.DB))
 
-(import '(Autodesk.Revit.DB Element ElementId Wall Area ))
+
+
 
 
 (def ElementIdList |System.Collections.Generic.List`1[Autodesk.Revit.DB.ElementId]|)
@@ -122,7 +129,7 @@
   ] logic)
   )
 
-  (defn class-filter [t] (new Autodesk.Revit.DB.ElementClassFilter t) })
+  (defn class-filter [t] (new Autodesk.Revit.DB.ElementClassFilter t) )
   
   (defn category-filter 
   " Get category filter based on enum or ElementId of the category "
@@ -141,13 +148,8 @@
    )
 
 
-
-
- (time (. e1 get_Parameters))
- (time (. e1 Parameters))
-  (time (mapv  #(get-parameters (get-element document %)) (get-selected-elements ui-doc))
-
-(def config {:port 9998 :name "martis" :accept 'clojure.core.server/repl } )
-
-(def server (clojure.core.server/start-server config))
-
+(defn start-server [port] 
+	(let [config {:port port :name "repl" :accept 'clojure.core.server/repl } ]
+	 (clojure.core.server/start-server config)
+	)
+)

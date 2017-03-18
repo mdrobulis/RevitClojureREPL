@@ -23,7 +23,8 @@ namespace ClojureRepl
       (try
         (binding [*ns* user-ns]
             (eval (read-string request)))
-        (catch Exception e (str (. e Message) "" "" (. e StackTrace )))))");
+        (catch Exception e (str (. e Message) "" "" (. e StackTrace )))
+)))");
 
             object nsGenFn = Clojure.read(@"
 (defn generate-ns  

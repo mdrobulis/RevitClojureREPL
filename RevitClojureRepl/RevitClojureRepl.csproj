@@ -76,7 +76,9 @@
     <Content Include="clj.addin">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="revitWrapper.clj" />
+    <None Include="revitWrapper.clj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClojureRepl\ClojureRepl.csproj">

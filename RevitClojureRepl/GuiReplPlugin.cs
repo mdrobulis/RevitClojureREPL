@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Autodesk.Revit.Attributes;
 using clojure.clr.api;
 using clojure.lang;
+using ClojureRepl;
 
 
 namespace RevitClojureRepl
@@ -73,9 +74,11 @@ namespace RevitClojureRepl
 
             var exe = new RevitIdlingAsyncEventExecutor(commandData.Application);
 
+            ClojureInit.ExecuteInNs.invoke("(load-string (slurp \"revitWrapper.clj\"))");
+
             var form = new System.Windows.Forms.Form();
             ConsoleRepl r = new ConsoleRepl(exe);
-
+            r.Dock=DockStyle.Fill;
             form.Controls.Add(r);
 
             form.Show(new JtWindowHandle( Process.GetCurrentProcess().MainWindowHandle ));

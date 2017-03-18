@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitClojureRepl", "RevitClojureRepl.csproj", "{9FF982F5-7580-469C-A1E0-AA32C083E2D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitClojureRepl", "RevitClojureRepl\RevitClojureRepl.csproj", "{9FF982F5-7580-469C-A1E0-AA32C083E2D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavisworksClojureRepl", "..\NavisworksClojureRepl\NavisworksClojureRepl.csproj", "{C12B9225-F176-459A-A3F2-1526502C1F54}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavisworksClojureRepl", "NavisworksClojureRepl\NavisworksClojureRepl.csproj", "{C12B9225-F176-459A-A3F2-1526502C1F54}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClojureRepl", "ClojureRepl\ClojureRepl.csproj", "{09EBBD2A-CEEB-4446-B31D-8E0183214100}"
 EndProject

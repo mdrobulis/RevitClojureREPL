@@ -75,7 +75,7 @@ namespace RevitClojureRepl
                         {
                             try
                             {
-                                return ExecuteInNs.invoke(code, NS);
+                                return ExecuteInNs.invoke(code);
                             }
                             catch (Exception ex)
                             {
