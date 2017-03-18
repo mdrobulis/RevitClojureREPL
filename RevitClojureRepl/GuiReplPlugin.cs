@@ -74,7 +74,7 @@ namespace RevitClojureRepl
 
             var exe = new RevitIdlingAsyncEventExecutor(commandData.Application);
 
-            ClojureInit.ExecuteInNs.invoke("(load-string (slurp \"revitWrapper.clj\"))");
+            ClojureInit.ExecuteInNs.invoke("(load-string (slurp \"revitWrapper.clj\"))",ClojureInit.NS);
 
             var form = new System.Windows.Forms.Form();
             ConsoleRepl r = new ConsoleRepl(exe);
