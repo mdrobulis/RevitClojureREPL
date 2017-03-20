@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using clojure.lang;
 
 namespace ClojureRepl
 {
@@ -14,5 +15,8 @@ namespace ClojureRepl
         Task<T> Run<T>(Func<T> action);
 
         Task Run(Action action);
+
+        object Run(IFn func);
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.Runtime.CompilerServices;
@@ -21,8 +22,15 @@ namespace RevitClojureRepl
        
         public static UIControlledApplication app;
 
+       
+
+
         public Result OnStartup(UIControlledApplication application)
         {
+
+
+          
+
             app = application;
 
             application.CreateRibbonTab("Clojure");

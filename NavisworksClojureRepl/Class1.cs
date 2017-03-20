@@ -20,10 +20,10 @@ namespace NavisworksClojureRepl
     {
         public override Control CreateControlPane()
         {
-            var host = new ConsoleRepl(new SynchronusExecutor());
+            var host = new ConsoleRepl(new SynchronusExecutor(Autodesk.Navisworks.Api.Application.ActiveDocument));
 
 
-            ClojureInit.ExecuteInNs.invoke(@" (load-string (slurp ""C:\\dev\\RevitClojureRepl\\NavisworksClojureRepl\\wrapper.clj"")) ");
+            //ClojureInit.ExecuteInNs.invoke(@" (load-string (slurp ""C:\\dev\\RevitClojureRepl\\NavisworksClojureRepl\\wrapper.clj"")) ");
 
             host.Dock = DockStyle.Fill;
             host.CreateControl();

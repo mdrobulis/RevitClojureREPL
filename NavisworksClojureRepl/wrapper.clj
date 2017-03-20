@@ -1,5 +1,5 @@
 ﻿
-
+(in-ns 'user)
 
 (use 'clojure.reflect 'clojure.pprint 'clojure.repl)
 
@@ -20,7 +20,7 @@
 
 
  (defn reflect-type [t]
-  (pprint (sort (map #(:name %) (:members (clojure.reflect/reflect t))))
+  (pprint (sort (map #(:name %) (:members (reflect t))))
  )
  )
 

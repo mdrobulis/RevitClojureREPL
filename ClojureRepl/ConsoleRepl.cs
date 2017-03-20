@@ -21,49 +21,90 @@ namespace RevitClojureRepl
     public partial class ConsoleRepl : UserControl
     {
 
+        List<string> CommandHistory = new List<string>() {""};
+        private int index = 0;
      
         public ConsoleRepl(IExecutor exe)
         {
+            InitializeComponent();
 
-            CommandInput.KeyDown += async (sender, args) =>
+            var inpoutStream = new BlockingStream(new MemoryStream());
+            var outputStream = new BlockingStream(new MemoryStream());
+
+            var replThread = new Thread(() => ClojureInit.REPL2(inpoutStream, outputStream,outputStream,exe));
+            replThread.Start();
+            var inputWriter = new StreamWriter(inpoutStream);
+            var outputReader = new StreamReader(outputStream);
+            outputReader.InitializeLifetimeService();
+            inputWriter.InitializeLifetimeService();
+
+            TextBoxStreamWriter textBoxStreamWriter = new TextBoxStreamWriter( this.richTextBox1);
+
+            new Thread(()=> {
+                
+               
+                while (true)
+                {
+                    var output = outputReader.Read();
+                    if((char)output != '\r' )
+                     textBoxStreamWriter.Write((char) output);
+                    
+                }
+            }).Start();
+
+
+            CommandInput.KeyDown += (sender, args) =>
             {
                 if (args.KeyData == Keys.Enter)
                 {
                     try
                     {
                         args.SuppressKeyPress = true;
-                        string code = CommandInput.Text.Trim();
-                        listBox1.Items.Add(code);
-                        var res = await exe.Run(() =>
-                        {
-                            try
-                            {
-                                return ClojureInit.ExecuteInNs.invoke(code,ClojureInit.NS);
-                            }
-                            catch (Exception ex)
-                            {
-                                return ex.Message;
-                            }
-                        }).ConfigureAwait(false);
-
-                        listBox1.Items.Add(res.ToString());
-                        CommandInput.Text = String.Empty;
+                        
+                        string code = CommandInput.Text.Trim('\r', '\n', ' ');
+                        CommandHistory.Add(code);
+                        index = CommandHistory.Count-1;
+                        inputWriter.WriteLine(code);
+                        textBoxStreamWriter.WriteLine(code);
+                        inputWriter.Flush();
+                        
                     }
                     catch (Exception ex)
                     {
-                        listBox1.Items.Add(ex.Message);
-                        listBox1.Items.Add(ex.StackTrace);
                         CommandInput.Text = String.Empty;
                     }
                 }
+                if (args.KeyData == Keys.Up)
+                {
+                    try
+                    {
+                        args.SuppressKeyPress = true;
+                        index--;
+                        CommandInput.Text = CommandHistory[index];
+                    }
+                    catch (Exception ex)
+                    {
+                        CommandInput.Text = String.Empty;
+                    }
+                }
+                if (args.KeyData == Keys.Down)
+                {
+                    try
+                    {
+                        args.SuppressKeyPress = true;
+                        index++;
+                        CommandInput.Text = CommandHistory[index];
+                    }
+                    catch (Exception ex)
+                    {
+                        CommandInput.Text = String.Empty;
+                    }
+                }
+
+
             };
 
-            listBox1.SelectedValueChanged +=
-                (sender, args) =>
-                {
-                    if(listBox1.SelectedItem!=null)
-                        CommandInput.Text = listBox1.SelectedItem.ToString().Trim();
-                };
+            
         }
     }
 }

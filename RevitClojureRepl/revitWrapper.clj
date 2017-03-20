@@ -25,7 +25,9 @@
 (. doc GetElement id)
 )
 
-(defn guid [element] (. element get_UniqueId) )
+(defn UniqueId 
+"gets the UniqueId of the element"
+ [element] (. element get_UniqueId) )
 
 
 
@@ -39,19 +41,23 @@
     ids
 ))
 
-(defn get-elements-of-type [doc type]
+(defn get-elements-of-type 
+"returns a lazy-seq of elements if some type"
+[doc type]
 	(let [ collector (new Autodesk.Revit.DB.FilteredElementCollector doc)
-		   filter (. collector OfType type)
+		   filter (. collector OfClass type)
 	]
-	(. collector ToElements)
+	(map (fn [x] x) collector )
 	)
 )
 
 
 
-(defn get-element-ids-of-type [doc type]
+(defn get-element-ids-of-type
+"returns a list of ElementId's "
+ [doc type]
 	(let [ collector (new Autodesk.Revit.DB.FilteredElementCollector doc)
-		   filter (. collector OfType type)
+		   filter (. collector OfClass type)
 	]
 	(. collector ToElementIds)
 	)
@@ -64,12 +70,12 @@
 (defn get-filtered-elements [doc filter] 
 (let [collector (doto (new Autodesk.Revit.DB.FilteredElementCollector doc) 
 					(. WherePasses filter))]
-	(. collector ToElements))
+	(map (fn [x] x) collector ))
 )
 (defn get-filtered-element-ids [doc filter] 
 (let [collector (doto (new Autodesk.Revit.DB.FilteredElementCollector doc) 
 					(. WherePasses filter))]
-	(. collector ToElementIds))
+	(map (fn [x] x) collector ))
 )
 
 
@@ -145,6 +151,11 @@
    (defn list-category-names [] 
    "lists all category names"
    (. System.Enum GetNames Autodesk.Revit.DB.BuiltInCategory)
+   )
+
+
+   (defn all-elements [doc]
+	(get-filtered-elements doc (all-filter))
    )
 
 

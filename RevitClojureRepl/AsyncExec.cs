@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using clojure.clr.api;
+using clojure.lang;
 using ClojureRepl;
 
 namespace RevitClojureRepl
@@ -12,6 +14,7 @@ namespace RevitClojureRepl
 
     public class RevitIdlingAsyncEventExecutor : IDisposable, IExecutor
     {
+        private ConcurrentQueue<string> clojurequeue = new ConcurrentQueue<string>();
         private ConcurrentQueue<Task> queue = new ConcurrentQueue<Task>();
         private ExternalEvent externalEvent;
         private UIApplication app;
@@ -34,6 +37,7 @@ namespace RevitClojureRepl
                         Task task;
                         while (queue.TryDequeue(out task))
                         {
+                            task.ConfigureAwait(false);
                             task.RunSynchronously();
                         }
                         if (TransactionStatus.Committed != t.Commit())
@@ -73,6 +77,13 @@ namespace RevitClojureRepl
             return task;
         }
 
+        public object Run(IFn func)
+        {
+            var p = ClojureInit.Eval.invoke(Clojure.read("(promise)"));
+            Run(() => { ClojureInit.Sync.invoke(func, this.app.ActiveUIDocument, p);});
+            return p;
+
+        }
 
 
         public string GetName()

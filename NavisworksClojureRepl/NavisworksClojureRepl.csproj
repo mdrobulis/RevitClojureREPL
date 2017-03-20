@@ -80,13 +80,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClojureRepl\ClojureRepl.csproj">
-      <Project>{09EBBD2A-CEEB-4446-B31D-8E0183214100}</Project>
-      <Name>ClojureRepl</Name>
-    </ProjectReference>
+    <None Include="wrapper.clj" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wrapper.clj" />
+    <ProjectReference Include="..\ClojureRepl\ClojureRepl.csproj">
+      <Project>{09ebbd2a-ceeb-4446-b31d-8e0183214100}</Project>
+      <Name>ClojureRepl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
