@@ -15,14 +15,33 @@ namespace RevitClojureRepl
             _output = output;
         }
 
+
+        private StringBuilder sb = new StringBuilder(100);
+
         public override void Write(char value)
         {
+            if (value != '\n')
+            {
+                sb.Append(value);
+            }
+            else
+            {
+                
+            
+
             if (_output.IsHandleCreated)
-                _output.Invoke(new Action(() => {
-                    
-                                     _output.AppendText(value.ToString());
+            {
+
+
+                _output.Invoke(new Action(() =>
+                {
+                    _output.AppendText(sb.ToString());
+                    sb = new StringBuilder();
                 }
-                )); 
+
+                ));
+            }
+          }
             // When character data is written, append it to the text box.
         }
 

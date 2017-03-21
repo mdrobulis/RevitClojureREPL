@@ -69,14 +69,8 @@ Using the console provided, you can start Socket with a wrapper function
 
 This will start a Socket REPL on port 5555.
 
-You can connect to it using telnet or PuTTY clients
-
-	CMD >telnet localhost 5555
-
-In telnet terminal backspace doesn't work as you would expect, so editing/fixing your command is not-a-feature
-
-PuTTY works much better. 
 Download PuTTY here http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
 
 localhost = localhost 
 port = 5555  // or what ever you specified when you started the server
@@ -85,14 +79,19 @@ Connection type -> RAW
 Its also a good idea to turn on "Implicit CR in every LF",
 it makes (doc <sym>) output look nice;
 
-Backspace in PuTTY works perfectly, as oposed to telnet terminal.
-
 Only drawback, arrow keys don't work, so good luck deleting half your expression when fixing a typo.
 
 
-!!! WARNING !!! Socket REPL does not provide revit transaction context.
+!!! WARNING 1 !!! Socket REPL does not provide revit transaction context.
 
-TODO: Add a macro that will force all reads and writes to queue and run on Main Revit thread inside transaction.
+!!! WARNING 2 !!! Always Exit by typing 
+	
+	:repl/quit 
+
+otherwise Revit will crash
+
+
+
 
 Navisworks API is thread safe, so no extra precautions are needed, nock your self out with (thread) and pmap....
 
@@ -125,17 +124,25 @@ Cider works with nRepl only. Clr version of that thing is on David Millers shelf
 ### Inf-clojure package
 
 This is a much simpler package, that supports Socket REPL connection.
-Great, all you need is 
-* start a Socket server
-* start Emacs
-* Telnet to localhost [some port] 
-* Be enraged by the fact that emacs and telnet ar not friends.
 
-* download putty.exe and his console friend plink.exe and pray they work together.
-* and... 
-* well you're on your own.
+The secret sause here is PuTTY.exe and its best friend plink.exe
+put them in in your $PATH.
 
-Let me know, if you've found a solution.
+
+	(setq inf-clojure-generic-cmd "\\plink -load your-repl-settings")
+	
+Open any clj filed
+
+	M + x :	inf-clojure
+
+Buffer starts, and you get
+	
+	user=> 
+
+Enjoy, the only problem - sync context does not work here yet.
+
+I need to write my own version of socket repl, to support it.
+	
 
 ## Documentation about host environments
 

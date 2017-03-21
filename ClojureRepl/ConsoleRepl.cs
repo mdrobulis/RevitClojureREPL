@@ -79,7 +79,7 @@ namespace RevitClojureRepl
                     try
                     {
                         args.SuppressKeyPress = true;
-                        index--;
+                        if (indexInRange(index)) index--;
                         CommandInput.Text = CommandHistory[index];
                     }
                     catch (Exception ex)
@@ -92,7 +92,7 @@ namespace RevitClojureRepl
                     try
                     {
                         args.SuppressKeyPress = true;
-                        index++;
+                        if(indexInRange(index)) index++;
                         CommandInput.Text = CommandHistory[index];
                     }
                     catch (Exception ex)
@@ -104,7 +104,13 @@ namespace RevitClojureRepl
 
             };
 
+       
+        }
+
+        bool indexInRange(int index)
+        {
             
+            return 0 > index > CommandHistory.Count-1;
         }
     }
 }

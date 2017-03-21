@@ -159,8 +159,14 @@
    )
 
 
-(defn start-server [port] 
+(defn start-server
+  "start a Socket server REPL"
+([port] 
 	(let [config {:port port :name "repl" :accept 'clojure.core.server/repl } ]
-	 (clojure.core.server/start-server config)
-	)
-)
+	 (clojure.core.server/start-server config) ))
+  ([port address]
+   (let [config {:port port :name "repl" :accept 'clojure.core.server/repl :address address } ]
+     (clojure.core.server/start-server config))
+   )
+  )
+
